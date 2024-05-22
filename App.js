@@ -1,10 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text style={styles.title}>Hello</Text>
+      <Text style={styles.message}>Sign in to your account!</Text>
+      <TextInput placeholder='example@gmail.com'></TextInput>
+
       <StatusBar style="auto" />
     </View>
   );
@@ -16,5 +19,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  title:{
+    fontSize: 30,
+  },
+  message:{
+    fontSize:15,
   },
 });

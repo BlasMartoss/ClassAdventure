@@ -7,12 +7,13 @@ import SelectRole from './Pages/SelectRole';
 import Home from './Pages/Home';
 import HomeParticipant from './Pages/HomeParticipant';
 import UpgradePlan from './Pages/UpgradePlan';
+import TablePlan from './Pages/TablePlan';
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="UpgradePlan">
+      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="TablePlan">
         
         <Stack.Screen name="Signin" component={Signin} />
         <Stack.Screen name="Signup" component={Signup} />
@@ -20,6 +21,8 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="HomeParticipant" component={HomeParticipant} />
         <Stack.Screen name="UpgradePlan" component={UpgradePlan} />
+        <Stack.Screen name="TablePlan" component={TablePlan} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

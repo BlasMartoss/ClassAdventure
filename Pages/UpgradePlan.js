@@ -20,7 +20,7 @@ export default function UpgradePlan({ navigation }) {
 
       <Text style={styles.title}>Upgrade Plan</Text>
       <Text style={styles.subTitle}>Choose a subscription plan to unlock all the funcionality of the application</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TablePlan')}>
        
           <Text style={styles.buttonText}>View Comparison</Text>
     
@@ -58,7 +58,7 @@ export default function UpgradePlan({ navigation }) {
         <View style={styles.buttonPlanDiv}>
             <TouchableOpacity style={styles.buttonPlan}>
                 
-                <Text style={styles.buttonTextPlan}>Compare</Text>
+                <Text style={styles.buttonTextPlan}>BUY</Text>
                 
           
             </TouchableOpacity>
@@ -97,7 +97,7 @@ export default function UpgradePlan({ navigation }) {
         <View style={styles.buttonPlanDiv}>
             <TouchableOpacity style={styles.buttonPlan}>
                 
-                <Text style={styles.buttonTextPlan}>Compare</Text>
+                <Text style={styles.buttonTextPlan}>BUY</Text>
                 
           
             </TouchableOpacity>

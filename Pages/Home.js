@@ -10,11 +10,14 @@ export default function Home({ navigation }) {
     <View style={styles.container}>
         <View style={styles.HeaderContainer}>
             <View style={styles.upgradeContainer} >
-                <Image
-                    source={require('../images/UpgradeImage.png')}
-                    style={styles.image}
-                />
-                <Text style={styles.upgradeText}>Upgrade Plan</Text>
+                <TouchableOpacity style={styles.upgradeContainer} onPress={() => navigation.navigate('UpgradePlan')}> 
+                    <Image
+                        source={require('../images/UpgradeImage.png')}
+                        style={styles.image}
+                    />
+                     <Text style={styles.upgradeText}>Upgrade Plan</Text>
+                </TouchableOpacity>
+               
             </View>
                  <Image
                     source={require('../images/iconUser.png')}
@@ -55,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '80%',
     padding: '2%',
-    paddingLeft: '5%',
+    paddingLeft: '3%',
   },
   upgradeText: {
     fontSize: 20,

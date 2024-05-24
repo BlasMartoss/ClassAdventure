@@ -167,7 +167,7 @@ export default function UpgradePlan({ navigation }) {
         </View>
         <View style={styles.line}></View>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('UpgradePlan0')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('UpgradePlan')}>
             <Text style={styles.buttonText}>BUY PREMIUM</Text>
         </TouchableOpacity>
       <StatusBar style="auto" />

@@ -8,12 +8,13 @@ import Home from './Pages/Home';
 import HomeParticipant from './Pages/HomeParticipant';
 import UpgradePlan from './Pages/UpgradePlan';
 import TablePlan from './Pages/TablePlan';
+import GymkhanaMain from './Pages/GymkhanaMain';
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="TablePlan">
+      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="GymkhanaMain">
         
         <Stack.Screen name="Signin" component={Signin} />
         <Stack.Screen name="Signup" component={Signup} />
@@ -22,6 +23,7 @@ export default function App() {
         <Stack.Screen name="HomeParticipant" component={HomeParticipant} />
         <Stack.Screen name="UpgradePlan" component={UpgradePlan} />
         <Stack.Screen name="TablePlan" component={TablePlan} />
+        <Stack.Screen name="GymkhanaMain" component={GymkhanaMain} />
 
       </Stack.Navigator>
     </NavigationContainer>

@@ -33,7 +33,7 @@ export default function Home({ navigation }) {
             source={require('../images/mapIcon.png')}
             style={styles.mapImage}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('GymkhanaMain')}>
             <LinearGradient colors={['#89BBE9', '#3E9CF3']} style={styles.linearGradient} >
             <Text style={styles.buttonText}>CREATE</Text>
             </LinearGradient>

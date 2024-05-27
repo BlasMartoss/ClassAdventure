@@ -53,7 +53,7 @@ export default function Home({ navigation }) {
             <Text style={styles.text}>Update Plan</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.configurationView} onPress={() => navigation.navigate('UpgradePlan')}> 
+        <TouchableOpacity style={styles.configurationView} onPress={() => navigation.navigate('AppInformationOrganizer')}> 
             <Image
                 source={require('../images/AppInformationIcon.png')}
                 style={styles.icon}

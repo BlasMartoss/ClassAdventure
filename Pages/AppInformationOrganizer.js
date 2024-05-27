@@ -10,7 +10,7 @@ export default function Home({ navigation }) {
     <View style={styles.container}>
             <View style={styles.HeaderContainer}>
                     <View style={styles.upgradeContainer} >
-                        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('ProfileSettingsParticipant')}>
+                        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('ProfileSettingsOrganizer')}>
                             <Text style={styles.backText}>&lt;</Text>
                         </TouchableOpacity>
                     </View>

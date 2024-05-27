@@ -94,10 +94,12 @@ const styles = StyleSheet.create({
     },
     // end back button
   viewOptions: {
+    paddingLeft: '5%',
+    paddingRight: '10%',
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignContent: 'center',
     alignItems: 'center',
     marginBottom: '5%'

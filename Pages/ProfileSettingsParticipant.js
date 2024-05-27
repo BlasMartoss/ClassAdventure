@@ -24,9 +24,9 @@ export default function Home({ navigation }) {
           style={styles.userIcon}
         />
         {/*ROLE*/}
-        <Text style={styles.username}>Joan</Text>
+        <Text style={styles.username}>Blas</Text>
         {/*ROLE*/}
-        <Text style={styles.role}>Organizer</Text>
+        <Text style={styles.role}>Participant</Text>
         <View style={styles.line}></View>
     
         <TouchableOpacity style={styles.configurationView} onPress={() => navigation.navigate('')}> 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "252931996623",
+    "project_id": "classadventure-6c07e",
+    "storage_bucket": "classadventure-6c07e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252931996623:android:55ff16f711ff2c1baef0ba",
+        "android_client_info": {
+          "package_name": "com.classadventure.classadventure"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm0bm3DsgLkWOj1lc8e8tAunmAlOzw59g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

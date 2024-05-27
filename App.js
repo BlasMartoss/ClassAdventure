@@ -9,6 +9,7 @@ import HomeParticipant from './Pages/HomeParticipant';
 import UpgradePlan from './Pages/UpgradePlan';
 import TablePlan from './Pages/TablePlan';
 import GymkhanaMain from './Pages/GymkhanaMain';
+import GymkhanaTask from './Pages/GymkhanaTask';
 import GymkhanaCompleted from './Pages/GymkhanaCompleted';
 import GymkhanaStart from './Pages/GymkhanaStart';
 import ProfileParticipant from './Pages/ProfileParticipant';
@@ -23,7 +24,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="AppInformation">
+      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="GymkhanaMain">
         
         <Stack.Screen name="Signin" component={Signin} />
         <Stack.Screen name="Signup" component={Signup} />
@@ -32,6 +33,7 @@ export default function App() {
         <Stack.Screen name="HomeParticipant" component={HomeParticipant} />
         <Stack.Screen name="UpgradePlan" component={UpgradePlan} />
         <Stack.Screen name="TablePlan" component={TablePlan} />
+        <Stack.Screen name="GymkhanaTask" component={GymkhanaTask} />
         <Stack.Screen name="GymkhanaMain" component={GymkhanaMain} />
         <Stack.Screen name="GymkhanaCompleted" component={GymkhanaCompleted} />
         <Stack.Screen name="GymkhanaStart" component={GymkhanaStart} />

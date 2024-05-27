@@ -9,12 +9,21 @@ import HomeParticipant from './Pages/HomeParticipant';
 import UpgradePlan from './Pages/UpgradePlan';
 import TablePlan from './Pages/TablePlan';
 import GymkhanaMain from './Pages/GymkhanaMain';
+import GymkhanaCompleted from './Pages/GymkhanaCompleted';
+import GymkhanaStart from './Pages/GymkhanaStart';
+import ProfileParticipant from './Pages/ProfileParticipant';
+import ProfileOrganizer from './Pages/ProfileOrganizer';
+import ProfileSettingsOrganizer from './Pages/ProfileSettingsOrganizer';
+import ProfileSettingsParticipant from './Pages/ProfileSettingsParticipant';
+import AppInformation from './Pages/AppInformation';
+
+
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="GymkhanaMain">
+      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="AppInformation">
         
         <Stack.Screen name="Signin" component={Signin} />
         <Stack.Screen name="Signup" component={Signup} />
@@ -24,6 +33,15 @@ export default function App() {
         <Stack.Screen name="UpgradePlan" component={UpgradePlan} />
         <Stack.Screen name="TablePlan" component={TablePlan} />
         <Stack.Screen name="GymkhanaMain" component={GymkhanaMain} />
+        <Stack.Screen name="GymkhanaCompleted" component={GymkhanaCompleted} />
+        <Stack.Screen name="GymkhanaStart" component={GymkhanaStart} />
+        <Stack.Screen name="ProfileParticipant" component={ProfileParticipant} />
+        <Stack.Screen name="ProfileOrganizer" component={ProfileOrganizer} />
+        <Stack.Screen name="ProfileSettingsOrganizer" component={ProfileSettingsOrganizer} />
+        <Stack.Screen name="ProfileSettingsParticipant" component={ProfileSettingsParticipant} />
+        <Stack.Screen name="AppInformation" component={AppInformation} />
+
+
 
       </Stack.Navigator>
     </NavigationContainer>

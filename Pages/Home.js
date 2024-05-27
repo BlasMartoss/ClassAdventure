@@ -12,17 +12,20 @@ export default function Home({ navigation }) {
             <View style={styles.upgradeContainer} >
                 <TouchableOpacity style={styles.upgradeContainer} onPress={() => navigation.navigate('UpgradePlan')}> 
                     <Image
-                        source={require('../images/UpgradeImage.png')}
+                        source={require('../images/Diamond Premium.png')}
                         style={styles.image}
                     />
                      <Text style={styles.upgradeText}>Upgrade Plan</Text>
                 </TouchableOpacity>
                
             </View>
+            <TouchableOpacity  onPress={() => navigation.navigate('ProfileOrganizer')}> 
+
                  <Image
-                    source={require('../images/iconUser.png')}
+                    source={require('../images/iconUser.png') }
                     style={styles.image}
                 />
+            </TouchableOpacity>
         </View>
         <Image
           source={require('../images/ClassAdventureLogo.png')}
@@ -30,7 +33,7 @@ export default function Home({ navigation }) {
       />
       
         <Image
-            source={require('../images/mapIcon.png')}
+            source={require('../images/GymkhanaFlag.png')}
             style={styles.mapImage}
         />
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('GymkhanaMain')}>

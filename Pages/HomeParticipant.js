@@ -12,11 +12,15 @@ export default function HomeParticipant({ navigation }) {
             <View style={styles.upgradeContainer} >
            
             </View>
+            <TouchableOpacity onPress={() => navigation.navigate('ProfileParticipant')}>
                  <Image
                     source={require('../images/iconUser.png')}
                     style={styles.image}
                 />
+            </TouchableOpacity >
         </View>
+
+       
         <Image
           source={require('../images/ClassAdventureLogo.png')}
           style={styles.ClassAdventureImage}
@@ -31,12 +35,14 @@ export default function HomeParticipant({ navigation }) {
                 <LinearGradient colors={['#89BBE9', '#3E9CF3']} style={styles.linearGradient} >
                 <Text style={styles.buttonText}>ENTER</Text>
                 </LinearGradient>
-        </TouchableOpacity>
+        </TouchableOpacity >
         <View style={styles.starContainer}>
+      
             <Image
                 source={require('../images/UpgradeImage.png')}
                 style={styles.starImage}
             />
+        
 
             <Text style={styles.text}>Each Gymkhana you win you will recive one star</Text>
         </View>

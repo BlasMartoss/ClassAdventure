@@ -18,14 +18,21 @@ import ProfileSettingsOrganizer from './Pages/ProfileSettingsOrganizer';
 import ProfileSettingsParticipant from './Pages/ProfileSettingsParticipant';
 import AppInformation from './Pages/AppInformation';
 import AppInformationOrganizer from './Pages/AppInformationOrganizer';
-
+import EditProfileParticipant from './Pages/EditProfileParticipant';
+import EditProfileOrganizer from './Pages/EditProfileOrganizer';
+import ViewGymkhanas from './Pages/ViewGymkhanas';
+import ScoreboardTEAM from './Pages/ScoreboardTEAM';
+import GymkhanaCompletedUsers from './Pages/GymkhanaCompletedUsers';
+import ScoreboardINDIVIDUAL from './Pages/ScoreboardINDIVIDUAL';
+import GymkhanaTestQR from './Pages/GymkhanaTestQR';
+import GymkhanaTestKEY from './Pages/GymkhanaTestKEY';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="ProfileParticipant">
+      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="GymkhanaTestKEY">
         
         <Stack.Screen name="Signin" component={Signin} />
         <Stack.Screen name="Signup" component={Signup} />
@@ -44,9 +51,17 @@ export default function App() {
         <Stack.Screen name="ProfileSettingsParticipant" component={ProfileSettingsParticipant} />
         <Stack.Screen name="AppInformation" component={AppInformation} />
         <Stack.Screen name="AppInformationOrganizer" component={AppInformationOrganizer} />
+        <Stack.Screen name="EditProfileParticipant" component={EditProfileParticipant} />
+        <Stack.Screen name="EditProfileOrganizer" component={EditProfileOrganizer} />
+        <Stack.Screen name="ViewGymkhanas" component={ViewGymkhanas} />
+        <Stack.Screen name="ScoreboardTEAM" component={ScoreboardTEAM} />
+        <Stack.Screen name="GymkhanaCompletedUsers" component={GymkhanaCompletedUsers} />
+        <Stack.Screen name="ScoreboardINDIVIDUAL" component={ScoreboardINDIVIDUAL} />
+        <Stack.Screen name="GymkhanaTestQR" component={GymkhanaTestQR} />
+        <Stack.Screen name="GymkhanaTestKEY" component={GymkhanaTestKEY} />
 
-
-
+        
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

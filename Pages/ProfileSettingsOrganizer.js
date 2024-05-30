@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import * as React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image, Modal } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Home({ navigation }) {
@@ -8,35 +8,46 @@ export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
-            <View style={styles.HeaderContainer}>
-                    <View style={styles.upgradeContainer} >
-                        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('ProfileOrganizer')}>
-                            <Text style={styles.backText}>&lt;</Text>
-                        </TouchableOpacity>
-                    </View>
-            </View>
-        <View style={styles.viewOptions}>
-            <Text style={styles.userProfileText}>Settings</Text>
-           
-        </View>
-        <Image
-          source={require('../images/iconUser.png')}
-          style={styles.userIcon}
-        />
-        {/*ROLE*/}
-        <Text style={styles.username}>Joan</Text>
-        {/*ROLE*/}
-        <Text style={styles.role}>Organizer</Text>
-        <View style={styles.line}></View>
-    
-        <TouchableOpacity style={styles.configurationView} onPress={() => navigation.navigate('')}> 
+     <View style={styles.HeaderContainer}>
+        <ImageBackground source={require('../images/BackgroundImage.png')} style={styles.backgroundImage} imageStyle={styles.imageBorderRadius}>
+          <View style={styles.headerView}>
+              <View style={styles.ButtonView}>
+              <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('ProfileOrganizer')}> 
+                    <Image
+                        source={require('../images/leftArrow.png')}
+                        style={styles.iconProfile}
+                    />
+              </TouchableOpacity>
+              </View> 
+            <Text style={styles.profileText}>Settings</Text>
+            <TouchableOpacity style={styles.configurationImage} onPress={() => navigation.navigate('ProfileSettingsOrganizer')}>
+                  <Image
+                          source={require('../images/Settings.png')}
+                          style={styles.iconProfile}
+                      />
+                </TouchableOpacity>
+          </View>
+          <View style={styles.pictureView}>
+                    <Image
+                        source={require('../images/iconUser.png')}
+                        style={styles.profilePicture}
+                    />
+                  <Text style={styles.userText}>Username</Text>
+                  <Text style={styles.roleText}>Organizer</Text>
+
+          </View>
+          
+        </ImageBackground>
+      </View>
+        
+        <TouchableOpacity style={styles.configurationView} onPress={() => navigation.navigate('EditProfileOrganizer')}> 
             <Image
                 source={require('../images/EditProfileIcon.png')}
                 style={styles.icon}
             />
             <Text style={styles.text}>Edit Profile</Text>
         </TouchableOpacity>
-
+        <View style={styles.line}></View>
        <TouchableOpacity style={styles.configurationView} onPress={() => navigation.navigate('')}> 
             <Image
                 source={require('../images/ChangePasswordIcon.png')}
@@ -44,7 +55,7 @@ export default function Home({ navigation }) {
             />
             <Text style={styles.text}>Change Password</Text>
         </TouchableOpacity>
-
+        <View style={styles.line}></View>
        <TouchableOpacity style={styles.configurationView} onPress={() => navigation.navigate('UpgradePlan')}> 
             <Image
                 source={require('../images/Diamond Premium.png')}
@@ -52,7 +63,7 @@ export default function Home({ navigation }) {
             />
             <Text style={styles.text}>Update Plan</Text>
         </TouchableOpacity>
-
+        <View style={styles.line}></View>
         <TouchableOpacity style={styles.configurationView} onPress={() => navigation.navigate('AppInformationOrganizer')}> 
             <Image
                 source={require('../images/AppInformationIcon.png')}
@@ -60,7 +71,7 @@ export default function Home({ navigation }) {
             />
             <Text style={styles.text}>App Information</Text>
         </TouchableOpacity>
-
+        <View style={styles.line}></View>
             <TouchableOpacity style={styles.logoutView} onPress={() => navigation.navigate('')}> 
                 <Image  
                     source={require('../images/LogoutIcon.png')}
@@ -68,7 +79,7 @@ export default function Home({ navigation }) {
                 />
                 <Text style={styles.text}>Log Out</Text>
              </TouchableOpacity>
-   
+          
       
       <StatusBar style="auto" />
     </View>
@@ -80,40 +91,80 @@ const styles = StyleSheet.create({
     backgroundColor: '#f1f1f1',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: '10%'
   },
-     upgradeContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        textAlign: 'center',
-        alignItems: 'center',
-        width: '80%',
-        padding: '2%',
-        paddingLeft: '5%',
-    },
-       // Back Button Style
-       HeaderContainer: {
-        alignItems: 'center',
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        alignContent: 'center',
-    },
-    backText: {
-        fontSize: 18,
-        padding: '2%',
-        paddingRight: '5%',
-        paddingLeft: "5%",
-    },
-    backButton: {
-        backgroundColor: 'white',
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
+  HeaderContainer: {
+   
+    alignItems: 'center',
+    display: 'flex',
+    width: '100%',
+    height: 300,
+    overflow: 'hidden',
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+    marginBottom: '5%'
+  },
+  iconProfile: {
+    height: 30,
+    width: 30
+  },
+  backgroundImage: {
+    height: '100%',
+    width: '100%',
+  },
+  imageBorderRadius: {
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+  },
+  headerView: {
+    paddingTop: '15%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingRight: '5%',
+    paddingLeft: '5%'
+  },
+  icon: {
+    height: 30,
+    width: 30
+  },
+  profileText: {
+    fontSize: 20,
+    color: 'white',
+    
+  },
+  ButtonView: {
+   
+    height: 35,
+    width: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 20
+  },
+  profilePicture: {
+    height: 120,
+    width: 120,
+  },
+  pictureView: {
+    width: '100%',
+    alignItems: 'center',
+    paddingTop: '4%',
+
+  },
+  userText: {
+    fontSize: 22,
+    color: 'white',
+    marginTop: '1%'
+  },
+  roleText: {
+    fontSize: 14,
+
+    color: 'white'
+  },
     // end back button
   viewOptions: {
     width: '100%',
@@ -159,7 +210,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft:'10%',
-    marginTop: '15%',
+    marginTop: '10%',
   },
   icon: {
     height: 50,
@@ -174,5 +225,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     marginLeft: '5%',
+  },
+  line: {
+    width: "90%",
+    height: 0.4,
+    backgroundColor: 'black',
+    marginBottom: '5%',
+    marginTop: '2%'
   },
 });

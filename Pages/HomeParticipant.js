@@ -14,7 +14,7 @@ export default function HomeParticipant({ navigation }) {
             </View>
             <TouchableOpacity onPress={() => navigation.navigate('ProfileParticipant')}>
                  <Image
-                    source={require('../images/iconUser.png')}
+                    source={require('../images/ProfilePictureIcon.png')}
                     style={styles.image}
                 />
             </TouchableOpacity >

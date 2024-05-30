@@ -1,22 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import * as React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 
-export default function GymkhanaStart({ navigation }) {
- 
-  let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  let randomKey = "";
-  let randomNumber;
-  for(var i = 0; i < 6; i++){
-     randomNumber = Math.floor(Math.random() * 10);
-     if (i == 3){
-      randomKey += " " 
-      randomKey += numbers[randomNumber];   
-     }else {
-      randomKey += numbers[randomNumber];   
-     }
-  }
+export default function ScoreboardTEAM({ navigation }) {
 
   return (
  
@@ -24,7 +10,7 @@ export default function GymkhanaStart({ navigation }) {
         
         <View style={styles.HeaderContainer}>
           <View style={styles.upgradeContainer}>
-            <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('')}>
+            <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Home')}>
               <Text style={styles.backText}>&lt;</Text>
             </TouchableOpacity>
           </View>
@@ -33,28 +19,28 @@ export default function GymkhanaStart({ navigation }) {
           source={require('../images/ClassAdventureLogo.png')}
           style={styles.ClassAdventureLogo}
         />
-        <Text style={styles.text}>Waiting for people...</Text>
-
+    
         <View style={styles.textContainer}>
-          <Text style={styles.title}>GYMKHANA PIN</Text>
-          <Text style={styles.text}>Share this code with people to start playing</Text>
-          <Text style={styles.pin}>{randomKey}</Text>
+          <Text style={styles.title}>GYMKHANA NAME</Text>
+          <Text style={styles.text}>Here you can see the players in the Gymkhana and their respective test </Text>
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
-          <LinearGradient colors={['#89BBE9', '#3E9CF3']} style={styles.linearGradient}>
-            <Text style={styles.buttonText}>START</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+       
 
         <View style={styles.viewScoreboard}>
           <ScrollView style={styles.scoreboardScroll}>
-            <Text style={styles.usersText}>Users in the Gymkhana</Text>
+            <Text style={styles.usersText}>Gymkhana Scoreboard</Text>
+            <View style={styles.infoView}>
+              <Text style={styles.infoname}>Username</Text>
+              <Text style={styles.infoname}>Test Number</Text>
+            </View>
             <View style={styles.userView}>
               <Image
                 source={require('../images/ProfilePictureIcon.png')}
                 style={styles.profileIcon}
               />
               <Text style={styles.userName}>Name</Text>
+              <Text style={styles.test}>4</Text>
+
             </View>
           </ScrollView>
         </View>
@@ -126,10 +112,13 @@ const styles = StyleSheet.create({
     color: '#888',
     fontSize: 15,
     textAlign: 'center',
+    marginRight: '10%',
+    marginLeft: '10%',
+    marginBottom: '10%'
   },
   title: {
-    fontSize: 30,
-    marginTop: '5%',
+    fontSize: 25,
+
   },
   pin: {
     fontSize: 30,
@@ -144,7 +133,7 @@ const styles = StyleSheet.create({
   },
   viewScoreboard: {
     width: '85%',
-    height: 250,
+    height: 380,
     borderWidth: 0.5,
     borderColor: 'black',
     display: 'flex',
@@ -182,4 +171,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: '5%',
   },
+  test: {
+    fontSize: 20,
+    marginLeft: '30%'
+  },
+  infoView: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  }
 });

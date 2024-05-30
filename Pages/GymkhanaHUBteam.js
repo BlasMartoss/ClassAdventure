@@ -3,20 +3,8 @@ import * as React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default function GymkhanaStart({ navigation }) {
- 
-  let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  let randomKey = "";
-  let randomNumber;
-  for(var i = 0; i < 6; i++){
-     randomNumber = Math.floor(Math.random() * 10);
-     if (i == 3){
-      randomKey += " " 
-      randomKey += numbers[randomNumber];   
-     }else {
-      randomKey += numbers[randomNumber];   
-     }
-  }
+export default function GymkhanaHUBteam({ navigation }) {
+
 
   return (
  
@@ -24,8 +12,8 @@ export default function GymkhanaStart({ navigation }) {
         
         <View style={styles.HeaderContainer}>
           <View style={styles.upgradeContainer}>
-            <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('')}>
-              <Text style={styles.backText}>&lt;</Text>
+            <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('HomeParticipant')}>
+              <Text style={styles.backText}>X</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -33,19 +21,56 @@ export default function GymkhanaStart({ navigation }) {
           source={require('../images/ClassAdventureLogo.png')}
           style={styles.ClassAdventureLogo}
         />
-        <Text style={styles.text}>Waiting for people...</Text>
 
         <View style={styles.textContainer}>
-          <Text style={styles.title}>GYMKHANA PIN</Text>
-          <Text style={styles.text}>Share this code with people to start playing</Text>
-          <Text style={styles.pin}>{randomKey}</Text>
+          <Text style={styles.title}>GYMKHANA NAME</Text>
+          <Text style={styles.text}>Waiting for people to start playing the Gymkhana</Text>
+      
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
-          <LinearGradient colors={['#89BBE9', '#3E9CF3']} style={styles.linearGradient}>
-            <Text style={styles.buttonText}>START</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+      
+        <Text style={styles.select_team_text}>Select your team</Text>
 
+        <View style={styles.teamscontainer}>
+        <View style={styles.teamView}>
+                    <TouchableOpacity>
+                        <Image
+                            source={require('../images/teamImage.png')}
+                            style={styles.teamImage}
+                        />
+                        <Text style={styles.groupnumber}>4</Text>
+                    </TouchableOpacity>
+            </View>
+            <View style={styles.teamView}>
+                    <TouchableOpacity>
+                        <Image
+                            source={require('../images/teamImage.png')}
+                            style={styles.teamImage}
+                        />
+                        <Text style={styles.groupnumber}>4</Text>
+                    </TouchableOpacity>
+            </View>
+            <View style={styles.teamView}>
+                    <TouchableOpacity>
+                        <Image
+                            source={require('../images/teamImage.png')}
+                            style={styles.teamImage}
+                        />
+                        <Text style={styles.groupnumber}>4</Text>
+                    </TouchableOpacity>
+            </View>
+            
+            <View style={styles.teamView}>
+                    <TouchableOpacity>
+                        <Image
+                            source={require('../images/teamImage.png')}
+                            style={styles.teamImage}
+                        />
+                        <Text style={styles.groupnumber}>4</Text>
+                    </TouchableOpacity>
+            </View>
+           
+
+        </View>
         <View style={styles.viewScoreboard}>
           <ScrollView style={styles.scoreboardScroll}>
             <Text style={styles.usersText}>Users in the Gymkhana</Text>
@@ -55,6 +80,8 @@ export default function GymkhanaStart({ navigation }) {
                 style={styles.profileIcon}
               />
               <Text style={styles.userName}>Name</Text>
+              <Text style={styles.team}>3</Text>
+
             </View>
           </ScrollView>
         </View>
@@ -129,12 +156,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    marginTop: '5%',
+  
   },
-  pin: {
-    fontSize: 30,
-    marginTop: '2%',
-  },
+ 
   textContainer: {
     width: '100%',
     alignItems: 'center',
@@ -150,7 +174,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignContent: 'center',
-    borderRadius: 10
+    borderRadius: 10,
+    marginTop: '10%'
   },
   scoreboardScroll: {
     width: '100%',
@@ -173,6 +198,7 @@ const styles = StyleSheet.create({
     paddingBottom: '3%',
     borderBottomColor: 'black',
     borderBottomWidth: 0.5,
+  
   },
   profileIcon: {
     height: 50,
@@ -182,4 +208,34 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: '5%',
   },
+  select_team_text: {
+    fontSize: 18,
+    marginTop: '2%  '
+  },
+  teamscontainer: {
+    width: '100%',
+    height: 100,
+    marginTop: '5%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  teamView: {
+    width: '20%',
+
+    alignContent: 'center',
+    alignItems: 'center'
+  },
+  teamImage:{
+    height: 80,
+    width: 80,
+  },
+  groupnumber: {
+    fontSize: 18,
+    textAlign: 'center'
+  },
+  team: {
+    fontSize: 20,
+    marginLeft: '30%'
+  }
 });

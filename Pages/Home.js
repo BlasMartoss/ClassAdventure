@@ -22,7 +22,7 @@ export default function Home({ navigation }) {
             <TouchableOpacity  onPress={() => navigation.navigate('ProfileOrganizer')}> 
 
                  <Image
-                    source={require('../images/iconUser.png') }
+                    source={require('../images/ProfilePictureIcon.png') }
                     style={styles.image}
                 />
             </TouchableOpacity>

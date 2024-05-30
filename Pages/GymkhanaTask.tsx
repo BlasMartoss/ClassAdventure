@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRoute } from "@react-navigation/native";
+import BackButton from "../components/BackButton";
 
 interface GymkhanaTask {
   title: string;
@@ -25,7 +26,7 @@ export default function GymkhanaTask({ navigation }) {
   const [taskDescription, setDescription] = useState<string>("");
   const [taskImages, setImages] = useState<string[]>([]);
   const [taskSecreyKEY, setSecretKEY] = useState<string>("");
-  const [QR, setQR] = useState<boolean>(true);
+  const [isQR, setisQR] = useState<boolean>(true);
   const [QRColor, setQRColor] = useState<string>("#499EF4");
   const [QRTextColor, setQRTextColor] = useState<string>("white");
   const [secretColor, setSecretColor] = useState<string>("#CDE5FC");
@@ -35,25 +36,16 @@ export default function GymkhanaTask({ navigation }) {
   const { number: taskNumber } = route.params as { number: number };
 
   const saveAndContinue = () => {
-    let generatedQR = "";
-    if (QR) {
-      const characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      for (let i = 0; i < 50; i++) {
-        generatedQR += characters.charAt(
-          Math.floor(Math.random() * characters.length)
-        );
-      }
-    }
+    const secretKey = isQR ? generateRandomString(70) : taskSecreyKEY;
 
     const newTask: GymkhanaTask = {
       title: taskTitle,
       description: taskDescription,
       images: taskImages,
-      secretKey: QR ? generatedQR : taskSecreyKEY,
+      secretKey,
     };
 
-    // Update tasks array using setTasks to maintain state
+    // Add task to the list
     setTasks((prevTasks) => [...prevTasks, newTask]);
 
     // Reset input fields
@@ -62,13 +54,25 @@ export default function GymkhanaTask({ navigation }) {
     setImages([]);
     setSecretKEY("");
 
-    if (tasks.length+1 === taskNumber) {
+    if (tasks.length === taskNumber - 1) {
       navigation.replace("GymkhanaCompleted");
     }
   };
 
+  function generateRandomString(length: number) {
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+    return result;
+  }
+
   const swapColors = (QR: boolean) => {
-    setQR(QR);
+    setisQR(QR);
     if (QR) {
       setSecretColor("#CDE5FC");
       setSecretTextColor("#888");
@@ -84,6 +88,7 @@ export default function GymkhanaTask({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <BackButton navigation={navigation} />
       <View style={styles.inputView}>
         <Text style={styles.titleInput}>Test Name</Text>
         <TextInput
@@ -149,7 +154,7 @@ export default function GymkhanaTask({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {!QR && (
+      {!isQR && (
         <View style={styles.inputView}>
           <Text style={styles.titleInput}>Enter the Secret Key</Text>
           <TextInput
@@ -164,10 +169,10 @@ export default function GymkhanaTask({ navigation }) {
         </View>
       )}
 
-      {QR && (
+      {isQR && (
         <Text style={styles.infoText}>
-          A QR will be generated;{"\n"} You will get a PDF with all{"\n"} the
-          QR's at the end
+          A QR code will be generated;{"\n"} You will receive a PDF with all
+          {"\n"} the QR codes at the end.
         </Text>
       )}
 
@@ -275,7 +280,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f1f1f1",
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: "5%",
+    paddingTop: "10%",
     paddingBottom: "5%",
   },
   upgradeContainer: {

@@ -1,11 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Home({ navigation }) {
-
-
   return (
     <View style={styles.container}>
      <View style={styles.HeaderContainer}>
@@ -167,42 +165,42 @@ const styles = StyleSheet.create({
   },
     // end back button
   viewOptions: {
-    width: '100%',
-    marginBottom: '5%'
+    width: "100%",
+    marginBottom: "5%",
   },
 
   userProfileText: {
     fontSize: 20,
-    marginLeft: '5%'
+    marginLeft: "5%",
   },
   userIcon: {
     height: 150,
-    width: 150,  
+    width: 150,
   },
   role: {
-    color: '#888',
+    color: "#888",
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
   },
   username: {
-    color: 'black',
+    color: "black",
     fontSize: 30,
-    textAlign: 'center',
+    textAlign: "center",
   },
   line: {
     width: "90%",
-    marginTop: '5%',
+    marginTop: "5%",
     height: 0.8,
-    marginBottom:'4%',
-    backgroundColor: 'black'
+    marginBottom: "4%",
+    backgroundColor: "black",
   },
   configurationView: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft:'10%',
-    marginTop: '4%',
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: "10%",
+    marginTop: "4%",
   },
   logoutView: {
     width: '100%',
@@ -214,14 +212,14 @@ const styles = StyleSheet.create({
   },
   icon: {
     height: 50,
-    width: 50, 
+    width: 50,
   },
   iconlogout: {
     height: 40,
-    width: 40, 
+    width: 40,
   },
   text: {
-    color: '#888',
+    color: "#888",
     fontSize: 18,
     textAlign: 'center',
     marginLeft: '5%',

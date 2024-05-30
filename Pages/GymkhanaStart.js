@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -8,14 +8,14 @@ export default function GymkhanaStart({ navigation }) {
   let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   let randomKey = "";
   let randomNumber;
-  for(var i = 0; i < 6; i++){
-     randomNumber = Math.floor(Math.random() * 10);
-     if (i == 3){
-      randomKey += " " 
-      randomKey += numbers[randomNumber];   
-     }else {
-      randomKey += numbers[randomNumber];   
-     }
+  for (var i = 0; i < 6; i++) {
+    randomNumber = Math.floor(Math.random() * 10);
+    if (i == 3) {
+      randomKey += " ";
+      randomKey += numbers[randomNumber];
+    } else {
+      randomKey += numbers[randomNumber];
+    }
   }
 
   return (
@@ -115,17 +115,17 @@ const styles = StyleSheet.create({
   },
   linearGradient: {
     padding: 10,
-    alignItems: 'center',
+    alignItems: "center",
     borderRadius: 5,
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 20,
   },
   text: {
-    color: '#888',
+    color: "#888",
     fontSize: 15,
-    textAlign: 'center',
+    textAlign: "center",
   },
   title: {
     fontSize: 30,

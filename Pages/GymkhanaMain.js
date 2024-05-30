@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import BackButton from "../components/BackButton";
 
 export default function GymkhanaMain({ navigation }) {
   // useState hook to manage the current number state
@@ -93,16 +94,7 @@ export default function GymkhanaMain({ navigation }) {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        <View style={styles.HeaderContainer}>
-          <View style={styles.upgradeContainer}>
-            <TouchableOpacity
-              style={styles.backButton}
-              onPress={() => navigation.navigate("Home")}
-            >
-              <Text style={styles.backText}>&lt;</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <BackButton navigation={navigation}/>
         <View style={styles.infoView}>
           <View style={styles.titleView}>
             <Image

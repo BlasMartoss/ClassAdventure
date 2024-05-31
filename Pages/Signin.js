@@ -7,16 +7,17 @@ import {
   TextInput,
   ToastAndroid,
   TouchableOpacity,
-  Alert,
   Image,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
+import PasswordInput from "../components/PasswordInput";
+import UserDetails from "../components/UserDetails";
 
-import db from "@react-native-firebase/database";
+import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 
- export default function Signin({ navigation }) {
+export default function Signin({ navigation }) {
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,25 +34,39 @@ import auth from "@react-native-firebase/auth";
         );
 
         if (response.user) {
-          /*const snapshot = await db().ref(`/users/${response.user.uid}`).once("role");
+          const userDocRef = firestore()
+            .collection("users")
+            .doc(response.user.uid);
 
-          if (snapshot.exists()) {
-            const userData = snapshot.val();
-            const role = userData.role;
+          // Get the document
+          const snapshot = await userDocRef.get();
+
+          // Check if the document exists
+          if (snapshot.exists) {
+            const userData = snapshot.data();
+            const { role, username, email, wins, pfp } = userData;
+
+            UserDetails.setUserDetails({
+              uid: response.user.uid,
+              username,
+              role,
+              email,
+              wins,
+              pfp,
+            });
+
+            // Navigate based on the user's role
             if (role === "a Participant") {
               navigation.replace("HomeParticipant");
               return;
             }
             navigation.replace("Home");
           } else {
-            navigation.replace("HomeParticipant");
-          }*/
-        navigation.replace("Home");
-
+            showToast("Error Fetching User Data");
+          }
         }
       } catch (error) {
-        console.log(error);
-        navigation.replace("Home");
+        showToast("Wrong Email or Password");
       }
       return;
     }
@@ -69,15 +84,13 @@ import auth from "@react-native-firebase/auth";
       <TextInput
         style={styles.textInput}
         onChangeText={(text) => setUsernameOrEmail(text)}
-        placeholder="Username or Email"
+        placeholder="Email"
         placeholderTextColor="#888"
       />
-      <TextInput
-        style={styles.textInput}
-        onChangeText={(text) => setPassword(text)}
+      <PasswordInput
         placeholder="Password"
-        secureTextEntry={true}
-        placeholderTextColor="#888"
+        onChangeText={(text) => setPassword(text.trim())}
+        space={true}
       />
       <Text>Forgot your password?</Text>
 

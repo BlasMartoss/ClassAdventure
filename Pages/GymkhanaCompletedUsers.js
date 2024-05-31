@@ -24,7 +24,7 @@ export default function Home({ navigation }) {
         />
         <Text style={styles.text}>You have won a Star</Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('HomeParticipant')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.replace('HomeParticipant')}>
             <LinearGradient colors={['#89BBE9', '#3E9CF3']} style={styles.linearGradient} >
             <Text style={styles.buttonText}>GO HOME</Text>
             </LinearGradient>

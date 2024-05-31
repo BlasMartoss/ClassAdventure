@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
+import LoadingScreen from './Pages/LoadingScreen';
 import Signin from './Pages/Signin';
 import Signup from './Pages/Signup';
 import SelectRole from './Pages/SelectRole';
@@ -18,22 +19,23 @@ import ProfileSettingsOrganizer from './Pages/ProfileSettingsOrganizer';
 import ProfileSettingsParticipant from './Pages/ProfileSettingsParticipant';
 import AppInformation from './Pages/AppInformation';
 import AppInformationOrganizer from './Pages/AppInformationOrganizer';
-import EditProfileParticipant from './Pages/EditProfileParticipant';
-import EditProfileOrganizer from './Pages/EditProfileOrganizer';
+import EditProfile from './Pages/EditProfile';
 import ViewGymkhanas from './Pages/ViewGymkhanas';
 import ScoreboardTEAM from './Pages/ScoreboardTEAM';
 import GymkhanaCompletedUsers from './Pages/GymkhanaCompletedUsers';
 import ScoreboardINDIVIDUAL from './Pages/ScoreboardINDIVIDUAL';
-import GymkhanaTestQR from './Pages/GymkhanaTestQR';
-import GymkhanaTestKEY from './Pages/GymkhanaTestKEY';
+import GymkhanaTest from './Pages/GymkhanaTest';
+import GymkhanaHUBteam from './Pages/GymkhanaHUBteam';
+import GymkhanaHUBindividual from './Pages/GymkhanaHUBindividual';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="GymkhanaTestKEY">
+      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="LoadingScreen">
         
+        <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
         <Stack.Screen name="Signin" component={Signin} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="SelectRole" component={SelectRole} />
@@ -51,14 +53,14 @@ export default function App() {
         <Stack.Screen name="ProfileSettingsParticipant" component={ProfileSettingsParticipant} />
         <Stack.Screen name="AppInformation" component={AppInformation} />
         <Stack.Screen name="AppInformationOrganizer" component={AppInformationOrganizer} />
-        <Stack.Screen name="EditProfileParticipant" component={EditProfileParticipant} />
-        <Stack.Screen name="EditProfileOrganizer" component={EditProfileOrganizer} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="ViewGymkhanas" component={ViewGymkhanas} />
         <Stack.Screen name="ScoreboardTEAM" component={ScoreboardTEAM} />
         <Stack.Screen name="GymkhanaCompletedUsers" component={GymkhanaCompletedUsers} />
         <Stack.Screen name="ScoreboardINDIVIDUAL" component={ScoreboardINDIVIDUAL} />
-        <Stack.Screen name="GymkhanaTestQR" component={GymkhanaTestQR} />
-        <Stack.Screen name="GymkhanaTestKEY" component={GymkhanaTestKEY} />
+        <Stack.Screen name="GymkhanaTest" component={GymkhanaTest} />
+        <Stack.Screen name="GymkhanaHUBteam" component={GymkhanaHUBteam} />
+        <Stack.Screen name="GymkhanaHUBindividual" component={GymkhanaHUBindividual} />
 
         
         

@@ -17,7 +17,7 @@ export default function Home({ navigation }) {
             <Text style={styles.title}>COMPLETED</Text>
             <Text style={styles.text}>Your gymkhana has been completely created and saved, start it whenever you want from the gymkhana section of your profile</Text>
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.replace('Home')}>
             <LinearGradient colors={['#89BBE9', '#3E9CF3']} style={styles.linearGradient} >
             <Text style={styles.buttonText}>GO HOME</Text>
             </LinearGradient>

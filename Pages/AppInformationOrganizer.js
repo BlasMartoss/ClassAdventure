@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import * as React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, Modal } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Home({ navigation }) {
 

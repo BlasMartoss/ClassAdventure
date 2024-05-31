@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,59 +7,153 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  ToastAndroid,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRoute } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
-
-interface GymkhanaTask {
-  title: string;
-  description: string;
-  images: string[];
-  secretKey: string;
-}
+import UserDetails from "../components/UserDetails";
+import firestore from "@react-native-firebase/firestore";
+import { launchImageLibrary } from "react-native-image-picker";
+import storage from "@react-native-firebase/storage";
 
 export default function GymkhanaTask({ navigation }) {
-  const [tasks, setTasks] = useState<GymkhanaTask[]>([]);
+  const [tasks, setTasks] = useState([]);
 
-  const [taskTitle, setTitle] = useState<string>("");
-  const [taskDescription, setDescription] = useState<string>("");
-  const [taskImages, setImages] = useState<string[]>([]);
-  const [taskSecreyKEY, setSecretKEY] = useState<string>("");
-  const [isQR, setisQR] = useState<boolean>(true);
-  const [QRColor, setQRColor] = useState<string>("#499EF4");
-  const [QRTextColor, setQRTextColor] = useState<string>("white");
-  const [secretColor, setSecretColor] = useState<string>("#CDE5FC");
-  const [secretTextColor, setSecretTextColor] = useState<string>("#888");
+  const [taskTitle, setTitle] = useState("");
+  const [taskDescription, setDescription] = useState("");
+  const [taskImages, setImages] = useState([]);
+  const [taskSecreyKEY, setSecretKEY] = useState("");
+  const [isQR, setisQR] = useState(true);
+  const [QRColor, setQRColor] = useState("#499EF4");
+  const [QRTextColor, setQRTextColor] = useState("white");
+  const [secretColor, setSecretColor] = useState("#CDE5FC");
+  const [secretTextColor, setSecretTextColor] = useState("#888");
 
   const route = useRoute();
-  const { number: taskNumber } = route.params as { number: number };
+  const { data } = route.params;
+
+  const showToast = (message) => {
+    ToastAndroid.show(message, ToastAndroid.SHORT);
+  };
+
+  const addImage = () => {
+    if (taskImages.length === 2) {
+      showToast("You can only add 2 images without premium");
+      return;
+    }
+    const options = {
+      title: "Select Picture",
+      storageOptions: {
+        mediaType: "photo",
+        skipBackup: true,
+      },
+    };
+
+    launchImageLibrary(options, (response) => {
+      if (!response.error && !response.didCancel) {
+        const newPic = response.uri || response.assets?.[0]?.uri;
+        setImages([...taskImages, newPic]);
+      }
+    });
+  };
+
+  const deleteImage = (index) => {
+    setImages((prevImages) => {
+      return prevImages.filter((_, i) => i !== index);
+    });
+  };
+
+  const uploadGymkhanaData = async () => {
+    // Generate a random string
+    const randomString = generateRandomString(20);
+
+    // Create a reference to the document
+    const gymkhanaRef = firestore()
+      .collection("gymkhanas")
+      .doc(`${randomString}${UserDetails.uid}`);
+
+    const groups = {
+      group1: { users: [], currentTest: 0 },
+      group2: { users: [], currentTest: 0 },
+      group3: { users: [], currentTest: 0 },
+      group4: { users: [], currentTest: 0 },
+    };
+
+    // Construct the gymkhana data object based on whether it's a group or not
+    const gymkhanaData = {
+      title: data.title,
+      owner: UserDetails.uid,
+      description: data.description,
+      isGroup: data.isGroup,
+      numTasks: data.numTasks,
+      tasks: tasks,
+      ...(data.isGroup && {
+        numberPlayersPerGroup: data.numberPlayersPerGroup,
+        numberGroups: data.numberGroups,
+        groups: groups,
+      }),
+      ...(data.isGroup === false && { numberPlayers: data.numberPlayers }),
+    };
+
+    // Upload images to storage and update corresponding task images URLs
+    const uploadTasksImagesPromises = tasks.map(async (task, index) => {
+      const taskImagesURLs = [];
+      for (const [index_, uri] of task.images.entries()) {
+        const imageRef = storage().ref(
+          `/gymkhanas/${UserDetails.uid}/${randomString + UserDetails.uid}_${
+            index_ + 1
+          }`
+        );
+        await imageRef.putFile(uri);
+        const imageURL = await imageRef.getDownloadURL();
+        taskImagesURLs.push(imageURL);
+      }
+      gymkhanaData.tasks[index].images = taskImagesURLs;
+    });
+
+    // Wait for all image uploads to complete
+    await Promise.all(uploadTasksImagesPromises);
+
+    // Set gymkhana data in Firestore
+    await gymkhanaRef.set(gymkhanaData);
+  };
 
   const saveAndContinue = () => {
     const secretKey = isQR ? generateRandomString(70) : taskSecreyKEY;
 
-    const newTask: GymkhanaTask = {
+    const newTask = {
       title: taskTitle,
       description: taskDescription,
       images: taskImages,
       secretKey,
+      QR: isQR,
     };
 
     // Add task to the list
     setTasks((prevTasks) => [...prevTasks, newTask]);
-
-    // Reset input fields
-    setTitle("");
-    setDescription("");
-    setImages([]);
-    setSecretKEY("");
-
-    if (tasks.length === taskNumber - 1) {
-      navigation.replace("GymkhanaCompleted");
-    }
   };
 
-  function generateRandomString(length: number) {
+  useEffect(() => {
+    if (tasks.length === data.numTasks) {
+      uploadGymkhanaData().then(() => {
+        // Reset input fields
+        setTitle("");
+        setDescription("");
+        setImages([]);
+        setSecretKEY("");
+        navigation.replace("GymkhanaCompleted");
+      });
+    } else {
+      // Reset input fields
+      setTitle("");
+      setDescription("");
+      setImages([]);
+      setSecretKEY("");
+    }
+  }, [tasks]);
+
+  function generateRandomString(length) {
     const characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";
@@ -71,7 +165,7 @@ export default function GymkhanaTask({ navigation }) {
     return result;
   }
 
-  const swapColors = (QR: boolean) => {
+  const swapColors = (QR) => {
     setisQR(QR);
     if (QR) {
       setSecretColor("#CDE5FC");
@@ -96,7 +190,7 @@ export default function GymkhanaTask({ navigation }) {
           style={styles.textInput}
           placeholder="Name"
           placeholderTextColor="#888"
-          onChangeText={(text: string) => setTitle(text)}
+          onChangeText={(text) => setTitle(text)}
         />
       </View>
 
@@ -109,7 +203,7 @@ export default function GymkhanaTask({ navigation }) {
           placeholderTextColor="#888"
           multiline={true}
           numberOfLines={4}
-          onChangeText={(text: string) => setDescription(text)}
+          onChangeText={(text) => setDescription(text)}
         />
       </View>
       <View style={styles.inputView}>
@@ -126,13 +220,19 @@ export default function GymkhanaTask({ navigation }) {
             />
           </TouchableOpacity>
         </View>
-        <TextInput
-          style={styles.textInputDescription}
-          placeholder="Tap to add a picture"
-          placeholderTextColor="#888"
-          multiline={true}
-          numberOfLines={4}
-        />
+        <View style={styles.picturesContainer}>
+          {taskImages.map((image, index) => (
+            <TouchableOpacity key={index} onPress={() => deleteImage(index)}>
+              <Image source={{ uri: image }} style={styles.pictures} />
+            </TouchableOpacity>
+          ))}
+          <TouchableOpacity onPress={addImage}>
+            <Image
+              source={require("../images/SCANQR.png")}
+              style={styles.pictures}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.buttonsView}>
@@ -164,7 +264,7 @@ export default function GymkhanaTask({ navigation }) {
             placeholderTextColor="#888"
             multiline={true}
             numberOfLines={4}
-            onChangeText={(text: string) => setSecretKEY(text)}
+            onChangeText={(text) => setSecretKEY(text)}
           />
         </View>
       )}
@@ -206,6 +306,15 @@ const styles = StyleSheet.create({
   number1: {
     marginHorizontal: 20,
     fontSize: 18,
+  },
+  picturesContainer: {
+    display: "flex",
+    flexDirection: "row",
+    marginBottom: "5%",
+  },
+  pictures: {
+    height: 80,
+    width: 80,
   },
   button_2: {
     borderRadius: 5,

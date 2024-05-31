@@ -14,7 +14,8 @@ import { useState } from "react";
 import { useRoute } from "@react-navigation/native";
 
 import auth from "@react-native-firebase/auth";
-import db from "@react-native-firebase/database";
+import firestore from "@react-native-firebase/firestore";
+import UserDetails from "../components/UserDetails";
 
 export default function SelectRole({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -28,13 +29,29 @@ export default function SelectRole({ navigation }) {
   const route = useRoute();
   const { data } = route.params;
 
-  const showToast = (message) => {
-    ToastAndroid.show(message, ToastAndroid.SHORT);
-  };
-
   const createProfile = async (response) => {
-    db().ref(`/users/${response.user.uid}`).set({ username: data.username });
-    db().ref(`/users/${response.user.uid}`).set({ role: selectedRole });
+    try {
+      // Reference to the Firestore document for the user
+      const userDocRef = firestore().collection("users").doc(response.user.uid);
+
+      // Set the user data in Firestore
+      await userDocRef.set({
+        email: data.email,
+        username: data.username,
+        role: selectedRole,
+        wins: 0,
+        pfp: "",
+      });
+
+      UserDetails.setUserDetails({
+        uid: response.user.uid,
+        username: data.username,
+        email: data.email,
+        role: selectedRole,
+        wins: 0,
+        pfp: "",
+      });
+    } catch {}
   };
 
   const handleConfirm = async (response) => {

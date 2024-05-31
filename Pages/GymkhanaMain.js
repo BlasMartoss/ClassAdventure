@@ -14,7 +14,9 @@ import BackButton from "../components/BackButton";
 
 export default function GymkhanaMain({ navigation }) {
   // useState hook to manage the current number state
-  const [number, setNumber] = useState(1);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [numTasks, setNumberOfTasks] = useState(1);
   const [numberPlayers, setNumberPlayers] = useState(1);
   const [numberPlayersPerGroup, setNumberPlayersPerGroup] = useState(1);
   const [numberGroups, setNumberofGroups] = useState(1);
@@ -60,25 +62,25 @@ export default function GymkhanaMain({ navigation }) {
 
   // Function to handle increment, ensuring the max is 4
   const increment = () => {
-    if (number < 4) {
-      setNumber(number + 1);
+    if (numTasks < 4) {
+      setNumberOfTasks(numTasks + 1);
     }
   };
 
   // Function to handle decrement, ensuring the min is 0
   const decrement = () => {
-    if (number > 1) {
-      setNumber(number - 1);
+    if (numTasks > 1) {
+      setNumberOfTasks(numTasks - 1);
     }
   };
   const [individualColor, setIndividualColor] = useState("#CDE5FC");
   const [groupColor, setGroupColor] = useState("#499EF4");
   const [individualTextColor, setIndividualTextColor] = useState("#888");
   const [groupTextColor, setGroupTextColor] = useState("white");
-  const [group, setGroup] = useState(true);
+  const [isGroup, setIsGroup] = useState(true);
 
   const swapColors = (group) => {
-    setGroup(group);
+    setIsGroup(group);
     if (group) {
       setGroupColor("#499EF4");
       setGroupTextColor("white");
@@ -94,7 +96,7 @@ export default function GymkhanaMain({ navigation }) {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        <BackButton navigation={navigation}/>
+        <BackButton navigation={navigation} />
         <View style={styles.infoView}>
           <View style={styles.titleView}>
             <Image
@@ -110,22 +112,24 @@ export default function GymkhanaMain({ navigation }) {
         </View>
 
         <View style={styles.inputView}>
-          <Text style={styles.titleInput}>Gymkhana Name</Text>
+          <Text style={styles.titleInput}>Name</Text>
           <TextInput
             style={styles.textInput}
             placeholder="Name"
             placeholderTextColor="#888"
+            onChangeText={(text) => setTitle(text.trim())}
           />
         </View>
 
         <View style={styles.inputView}>
-          <Text style={styles.titleInput}>Main Description</Text>
+          <Text style={styles.titleInput}>Description</Text>
           <TextInput
             style={styles.textInputDescription}
             placeholder="Description..."
             placeholderTextColor="#888"
             multiline={true}
             numberOfLines={4}
+            onChangeText={(text) => setDescription(text.trim())}
           />
         </View>
         <View style={styles.inputView}>
@@ -151,7 +155,7 @@ export default function GymkhanaMain({ navigation }) {
           </TouchableOpacity>
 
           {/* Display the current number */}
-          <Text style={styles.number}>{number}</Text>
+          <Text style={styles.number}>{numTasks}</Text>
 
           {/* Increment button */}
           <TouchableOpacity onPress={increment} style={styles.button}>
@@ -184,8 +188,8 @@ export default function GymkhanaMain({ navigation }) {
         </View>
 
         {/* Number of Groups */}
-        {group && <Text style={[styles.titleInput]}>Number of Groups </Text>}
-        {group && (
+        {isGroup && <Text style={[styles.titleInput]}>Number of Groups </Text>}
+        {isGroup && (
           <View style={styles.container3}>
             {/* Decrement button */}
             <TouchableOpacity onPress={decrementGroups} style={styles.button_2}>
@@ -203,10 +207,10 @@ export default function GymkhanaMain({ navigation }) {
         )}
 
         {/* Number of PLAYERS PER GROUP */}
-        {group && (
+        {isGroup && (
           <Text style={[styles.titleInput]}>Number of Players per Group </Text>
         )}
-        {group && (
+        {isGroup && (
           <View style={styles.container3}>
             {/* Decrement button */}
             <TouchableOpacity
@@ -230,8 +234,10 @@ export default function GymkhanaMain({ navigation }) {
         )}
 
         {/* Number of People (INDIVIDUAL) */}
-        {!group && <Text style={[styles.titleInput]}>Number of Players </Text>}
-        {!group && (
+        {!isGroup && (
+          <Text style={[styles.titleInput]}>Number of Players </Text>
+        )}
+        {!isGroup && (
           <View style={styles.container3}>
             {/* Decrement button */}
             <TouchableOpacity
@@ -256,7 +262,19 @@ export default function GymkhanaMain({ navigation }) {
 
         <TouchableOpacity
           style={styles.buttonContinue}
-          onPress={() => navigation.navigate("GymkhanaTask", { number })}
+          onPress={() =>
+            navigation.navigate("GymkhanaTask", {
+              data: {
+                title,
+                description,
+                isGroup,
+                numTasks,
+                numberPlayers,
+                numberPlayersPerGroup,
+                numberGroups,
+              },
+            })
+          }
         >
           <LinearGradient
             colors={["#89BBE9", "#3E9CF3"]}

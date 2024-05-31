@@ -15,13 +15,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import PasswordInput from "../components/PasswordInput";
 
+import firestore from '@react-native-firebase/firestore';
+
 export default function Signup({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
-  const [isPasswordVisible, setPasswordVisible] = useState(false);
 
 
   const showToast = (message) => {
@@ -29,10 +30,10 @@ export default function Signup({ navigation }) {
   };
 
   const handleRegister = async () => {
-    const minPasswordLength = 6;
-    const maxPasswordLength = 4096;
-
+    
     const passwordPolicyCheck = (password) => {
+      const minPasswordLength = 6;
+      const maxPasswordLength = 4096;
       const hasLowercase = /[a-z]/.test(password);
       const hasUppercase = /[A-Z]/.test(password);
       const hasNumeric = /\d/.test(password);
@@ -84,6 +85,23 @@ export default function Signup({ navigation }) {
 
     if (!isEnabled){
       showToast("Please accept the Terms and Conditions to continue");
+      return;
+    }
+
+    //Check if email or username already exists
+
+    const [emailQuerySnapshot, usernameQuerySnapshot] = await Promise.all([
+      firestore().collection('users').where('email', '==', email).get(),
+      firestore().collection('users').where('username', '==', username).get()
+    ]);
+
+    if (!emailQuerySnapshot.empty) {
+      showToast("The email address is already in use");
+      return;
+    }
+
+    if (!usernameQuerySnapshot.empty) {
+      showToast("The username is already in use");
       return;
     }
 
